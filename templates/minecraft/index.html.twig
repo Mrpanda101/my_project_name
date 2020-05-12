@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Minecraft index{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+    <h1>Minecraft index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for minecraft in minecrafts %}
+            <tr>
+                <td>{{ minecraft.id }}</td>
+                <td>{{ minecraft.Name }}</td>
+                <td>{{ minecraft.Age }}</td>
+                <td>{{ minecraft.comment }}</td>
+                <td>
+                    <a href="{{ path('minecraft_show', {'id': minecraft.id}) }}">show</a>
+                    <a href="{{ path('minecraft_edit', {'id': minecraft.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('minecraft_new') }}">Create new</a>
+{% endblock %}
